@@ -4,7 +4,7 @@ const en = {
   nav: {
     links: [
       { label: "About", href: "/#sobre" },
-      { label: "Projects", href: "/#projetos" },
+      { label: "Problems", href: "/#problemas" },
       { label: "Open Source", href: "/#opensource" },
       { label: "Contact", href: "/#contato" },
     ],
@@ -23,18 +23,41 @@ const en = {
     headline:
       "I've shipped for real clients, contributed to open source and built my own products end to end — with tests and CI from the first commit. The projects below are the proof.",
   },
-  projects: {
-    label: "Featured work",
-    title: "Projects",
+  problems: {
+    label: "Problems solved",
+    title: "I build what I needed.",
+    lead: "Every project here started as a problem of my own — something that annoyed me enough to build the tool instead of putting up with it. The stack came after the problem, not before.",
+    problemLabel: "The problem",
+    buildLabel: "What I built",
+    outcomeLabel: "Result",
     viewProject: "View project",
-    descriptions: {
-      wilbor:
-        "Website and admin dashboard for Wilbor, an art studio — live on the client's own domain. I build and maintain both the public portfolio and the content dashboard behind it.",
-      trustFinance:
-        "Personal-finance platform built end to end in .NET — ASP.NET Core REST API with SQL Server, automated tests and CI, docker-compose, and a React web client.",
-      domainInspector:
-        "Fullstack technical challenge, completed: a domain inspection tool with a C# back end and a web client.",
+    items: {
+      trustFinance: {
+        problem:
+          "I couldn't see where my money went each month. Spreadsheets I abandoned in two weeks, and a bank statement shows transactions, not patterns.",
+        build:
+          "A personal-finance service built like a production one: ASP.NET Core (.NET 8) REST API over SQL Server with Entity Framework, a React client, a dedicated test project gated by CI, and docker-compose that brings the database up with one command.",
+        outcome:
+          "It runs as my own service — and it's the repo I point to when someone asks how I'd ship a tested, containerized .NET API.",
+      },
+      domainInspector: {
+        problem:
+          "Finding out where a domain actually lives meant bouncing between DNS lookups, WHOIS and three different sites — every single time.",
+        build:
+          "A C# / ASP.NET Core back end that queries DNS servers and the WHOIS protocol and consolidates name servers, A record and hosting data into one response, with MySQL and TTL-based caching so a repeat lookup is served from the database.",
+        outcome:
+          "One search answers what used to take three tabs; repeat lookups don't hit external services again.",
+      },
     },
+  },
+  clientWork: {
+    label: "Client work",
+    title: "In production, for someone else.",
+    body: "Wilbor is an art and skate-culture studio from Rio de Janeiro. I build and maintain their public portfolio and the dashboard the studio manages its content with — in production, on their own domain.",
+    cta: "See the case",
+  },
+  projects: {
+    viewProject: "View project",
     detail: {
       back: "← All projects",
       contextLabel: "Context",
@@ -170,7 +193,7 @@ const pt: Dictionary = {
   nav: {
     links: [
       { label: "Sobre", href: "/#sobre" },
-      { label: "Projetos", href: "/#projetos" },
+      { label: "Problemas", href: "/#problemas" },
       { label: "Open Source", href: "/#opensource" },
       { label: "Contato", href: "/#contato" },
     ],
@@ -189,18 +212,41 @@ const pt: Dictionary = {
     headline:
       "Já entreguei pra cliente real, contribuo com open source e construo produtos próprios de ponta a ponta — com testes e CI desde o primeiro commit. Os projetos abaixo são a prova.",
   },
-  projects: {
-    label: "Trabalho em destaque",
-    title: "Projetos",
+  problems: {
+    label: "Problemas resolvidos",
+    title: "Construo o que eu precisava.",
+    lead: "Todo projeto aqui começou como um problema meu — alguma coisa que me incomodou o suficiente pra eu construir a ferramenta em vez de continuar aguentando. A stack veio depois do problema, não antes.",
+    problemLabel: "O problema",
+    buildLabel: "O que eu construí",
+    outcomeLabel: "Resultado",
     viewProject: "Ver projeto",
-    descriptions: {
-      wilbor:
-        "Site e dashboard administrativo do Wilbor, estúdio de arte — no ar no domínio do próprio cliente. Desenvolvo e mantenho o portfólio público e o painel de conteúdo por trás dele.",
-      trustFinance:
-        "Plataforma de finanças pessoais construída de ponta a ponta em .NET — API REST em ASP.NET Core com SQL Server, testes automatizados e CI, docker-compose, e cliente web em React.",
-      domainInspector:
-        "Desafio técnico fullstack, finalizado: ferramenta de inspeção de domínios com back-end em C# e cliente web.",
+    items: {
+      trustFinance: {
+        problem:
+          "Eu não enxergava pra onde ia meu dinheiro no mês. Planilha eu abandonava em duas semanas, e extrato de banco mostra transação, não padrão.",
+        build:
+          "Um serviço de finanças pessoais construído como se fosse de produção: API REST em ASP.NET Core (.NET 8) sobre SQL Server com Entity Framework, cliente React, projeto de testes dedicado travado por CI, e docker-compose que sobe o banco com um comando.",
+        outcome:
+          "Roda como serviço meu — e é o repo que eu mostro quando perguntam como eu entregaria uma API .NET testada e containerizada.",
+      },
+      domainInspector: {
+        problem:
+          "Descobrir onde um domínio realmente está hospedado significava pular entre consulta de DNS, WHOIS e três sites diferentes — toda vez.",
+        build:
+          "Back-end em C# / ASP.NET Core que consulta servidores DNS e o protocolo WHOIS e consolida name servers, registro A e dados de hospedagem numa resposta só, com MySQL e cache por TTL pra servir consulta repetida direto do banco.",
+        outcome:
+          "Uma busca responde o que antes exigia três abas; consulta repetida não bate de novo nos serviços externos.",
+      },
     },
+  },
+  clientWork: {
+    label: "Trabalho para cliente",
+    title: "Em produção, para outra pessoa.",
+    body: "O Wilbor é um estúdio de arte e cultura do skate do Rio de Janeiro. Desenvolvo e mantenho o portfólio público deles e o dashboard com que o estúdio gerencia o próprio conteúdo — em produção, no domínio deles.",
+    cta: "Ver o case",
+  },
+  projects: {
+    viewProject: "Ver projeto",
     detail: {
       back: "← Todos os projetos",
       contextLabel: "Contexto",

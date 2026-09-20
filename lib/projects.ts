@@ -1,11 +1,14 @@
-/* Shared data for the corporate featured projects — used by the home cards
-   and the /projects/[slug] case-study pages. Translatable copy lives in
-   lib/dictionaries.ts under projects.descriptions / projects.detail. */
+/* Shared project data — used by the home sections and the /projects/[slug]
+   case-study pages. Translatable copy lives in lib/dictionaries.ts:
+   the problem/build/outcome lines under `problems.items`, the client blurb
+   under `clientWork`, and the case pages under `projects.detail`. */
 
 export type ProjectKey = "wilbor" | "trustFinance" | "domainInspector";
 
 export type Project = {
   slug: string;
+  /** Which home section the project belongs to. */
+  kind: "problem" | "client";
   key: ProjectKey; // dictionary key
   title: string;
   tag: string; // short category chip (not translated)
@@ -19,6 +22,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "wilbor",
+    kind: "client",
     key: "wilbor",
     title: "Wilbor Studio",
     tag: "client work",
@@ -33,6 +37,7 @@ export const projects: Project[] = [
   },
   {
     slug: "trust-finance",
+    kind: "problem",
     key: "trustFinance",
     title: "Trust Finance",
     tag: "fullstack .NET",
@@ -51,6 +56,7 @@ export const projects: Project[] = [
   },
   {
     slug: "domain-inspector",
+    kind: "problem",
     key: "domainInspector",
     title: "Domain Inspector",
     tag: "tech challenge",
@@ -59,3 +65,9 @@ export const projects: Project[] = [
     stack: ["C#", "ASP.NET Core", "MySQL", "Entity Framework", "Webpack"],
   },
 ];
+
+/** Things I built to solve a problem of my own. */
+export const problemProjects = projects.filter((p) => p.kind === "problem");
+
+/** Paid work for a client, kept apart so it reads as a different category. */
+export const clientProjects = projects.filter((p) => p.kind === "client");

@@ -16,6 +16,8 @@ export default function ProjectDetail({ project }: { project: Project }) {
   const { t } = useLanguage();
   const d = t.projects.detail;
   const c = d.cases[project.key];
+  // back to the band the project actually sits in on the home page
+  const backHref = project.kind === "client" ? "/#cliente" : "/#problemas";
 
   return (
     <>
@@ -24,7 +26,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
         <article className="max-w-[840px] mx-auto px-6 py-16 md:py-24">
           <Reveal>
             <Link
-              href="/#projetos"
+              href={backHref}
               className="font-mono text-[13px] tracking-[0.04em] text-muted hover:text-accent transition-colors"
             >
               {d.back}
