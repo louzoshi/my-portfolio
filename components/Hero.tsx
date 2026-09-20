@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 import LetterGlitch from "./LetterGlitch";
 import { useLanguage } from "@/lib/useLanguage";
@@ -13,20 +14,47 @@ const PALETTE = {
     background: "#ffffff",
     colors: ["#ededf2", "#dedef0", "#bfbfe8"],
     scrim: "rgba(255,255,255,0.9)",
-    chip: "rgba(255,255,255,0.6)",
   },
   dark: {
     background: "#0a0a0b",
     colors: ["#1c1c23", "#2c2c40", "#5b5bd6"],
     scrim: "rgba(10,10,11,0.9)",
-    chip: "rgba(10,10,11,0.6)",
   },
 } as const;
 
 export default function Hero() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const { theme } = useTheme();
   const palette = PALETTE[theme];
+
+  /* The cue is pinned to the first fold, while the column above it grows with
+     the viewport width and the language (the description wraps to more lines
+     on a narrow screen). A height breakpoint guesses wrong either way, so
+     measure: keep the cue only while it clears the text. It stays in the
+     layout when hidden, so the next measurement is still valid. */
+  const textRef = useRef<HTMLDivElement>(null);
+  const cueRef = useRef<HTMLAnchorElement>(null);
+  const [cueFits, setCueFits] = useState(true);
+
+  useEffect(() => {
+    const check = () => {
+      const text = textRef.current;
+      const cue = cueRef.current;
+      if (!text || !cue) return;
+      const gap = cue.getBoundingClientRect().top - text.getBoundingClientRect().bottom;
+      setCueFits(gap >= 16);
+    };
+
+    // let the entrance reveals settle before the first measurement
+    const t1 = window.setTimeout(check, 1200);
+    const t2 = window.setTimeout(check, 200);
+    window.addEventListener("resize", check);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.removeEventListener("resize", check);
+    };
+  }, [lang]);
 
   return (
     <section
@@ -63,15 +91,15 @@ export default function Hero() {
       />
 
       {/* content — centred column */}
-      <div className="relative z-10 w-full max-w-[1120px] mx-auto px-6 pt-24 pb-14 md:pt-28 md:pb-24 text-center flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-[1120px] mx-auto px-6 pt-28 pb-24 text-center flex flex-col items-center">
         <Reveal delay={0.04}>
-          <div className="relative w-[152px] sm:w-[200px] md:w-[230px] aspect-square rounded-full overflow-hidden ring-1 ring-line shadow-elevated">
+          <div className="relative w-[180px] sm:w-[210px] md:w-[230px] aspect-square rounded-full overflow-hidden ring-1 ring-line shadow-elevated">
             <Image
               src="/imgs/newphoto.jpg"
               alt="Matheus Louzada"
               fill
               priority
-              sizes="(max-width: 768px) 200px, 230px"
+              sizes="(max-width: 768px) 210px, 230px"
               className="object-cover"
             />
           </div>
@@ -87,51 +115,26 @@ export default function Hero() {
           </h1>
         </Reveal>
 
-        <Reveal delay={0.26} className="mt-6">
+        <Reveal delay={0.26} className="mt-6" innerRef={textRef}>
           <p className="max-w-[560px] mx-auto text-[clamp(16px,2vw,20px)] leading-[1.55] text-muted text-pretty">
             {t.hero.description}
           </p>
         </Reveal>
-
-        <Reveal delay={0.34} className="mt-9">
-          <div className="flex flex-wrap gap-3.5 justify-center max-[480px]:flex-col max-[480px]:items-stretch">
-            <a
-              href="#problemas"
-              className="px-7 py-3.5 rounded-pill bg-accent text-white font-medium text-[15px] transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(91,91,214,0.55)]"
-            >
-              {t.hero.viewProjects}
-            </a>
-            <a
-              href="https://github.com/mtlouzada"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ background: palette.chip }}
-              className="px-[22px] py-3.5 rounded-pill border border-line text-fg text-[15px] backdrop-blur-sm transition-all duration-300 hover:bg-elev hover:-translate-y-0.5"
-            >
-              GitHub ↗
-            </a>
-            <a
-              href="https://www.linkedin.com/in/matheus-louzadaa/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ background: palette.chip }}
-              className="px-[22px] py-3.5 rounded-pill border border-line text-fg text-[15px] backdrop-blur-sm transition-all duration-300 hover:bg-elev hover:-translate-y-0.5"
-            >
-              LinkedIn ↗
-            </a>
-          </div>
-        </Reveal>
       </div>
 
       {/* scroll cue — anchored to the first fold rather than to the end of the
-          content (which overflows the screen on phones), so it is on screen
-          without scrolling and scrolls away with the hero. No Reveal wrapper:
-          its entrance transform would push the cue past the fold. Phones get
-          the rail alone — there is no room for the label under the buttons. */}
+          content, so it sits on screen without scrolling whatever the column's
+          height, and scrolls away with the hero. No Reveal wrapper: its
+          entrance transform would push the cue past the fold. */}
       <a
+        ref={cueRef}
         href="#sobre"
         aria-label={t.hero.scrollHint}
-        className="scroll-cue group absolute left-1/2 -translate-x-1/2 top-[calc(100svh-50px)] z-10 flex flex-col items-center gap-2"
+        aria-hidden={!cueFits}
+        tabIndex={cueFits ? undefined : -1}
+        className={`scroll-cue group absolute left-1/2 -translate-x-1/2 top-[calc(100svh-50px)] z-10 flex flex-col items-center gap-2 transition-opacity duration-300 ${
+          cueFits ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
       >
         <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-muted group-hover:text-fg transition-colors">
           {t.hero.scroll}

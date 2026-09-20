@@ -8,10 +8,13 @@ type RevealProps = {
   /** delay in seconds */
   delay?: number;
   id?: string;
+  /** measure the wrapper from the outside (see Hero's scroll cue) */
+  innerRef?: React.RefObject<HTMLDivElement>;
 };
 
-export default function Reveal({ children, className = "", delay = 0, id }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function Reveal({ children, className = "", delay = 0, id, innerRef }: RevealProps) {
+  const localRef = useRef<HTMLDivElement>(null);
+  const ref = innerRef ?? localRef;
 
   useEffect(() => {
     const el = ref.current;
@@ -47,7 +50,9 @@ export default function Reveal({ children, className = "", delay = 0, id }: Reve
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+    // `ref` is either the caller's ref or the stable local one — either way
+    // its identity holds for the component's life.
+  }, [ref]);
 
   return (
     <div

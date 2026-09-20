@@ -162,15 +162,6 @@
   animation-play-state: paused;
 }
 
-/* Short viewports (small phones, low browser windows): the hero column already
-   spills past the fold, so a cue anchored there would land on top of the
-   buttons. The cut-off content is the scroll affordance in that case. */
-@media (max-height: 720px) {
-  .scroll-cue {
-    display: none;
-  }
-}
-
 @keyframes scroll-cue {
   0%,
   100% {
