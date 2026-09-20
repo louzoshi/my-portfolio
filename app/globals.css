@@ -150,6 +150,39 @@
   z-index: 2;
 }
 
+/* ---------- hero scroll cue ----------
+   A label and a chevron that keeps nudging downwards: enough motion to read as
+   "there is more below" without competing with the hero. Kept short (34px) so
+   it clears the CTA row even on a 800px-tall laptop window. */
+.scroll-cue-arrow {
+  animation: scroll-cue 1.9s ease-in-out infinite;
+}
+
+.scroll-cue:hover .scroll-cue-arrow {
+  animation-play-state: paused;
+}
+
+/* Short viewports (small phones, low browser windows): the hero column already
+   spills past the fold, so a cue anchored there would land on top of the
+   buttons. The cut-off content is the scroll affordance in that case. */
+@media (max-height: 720px) {
+  .scroll-cue {
+    display: none;
+  }
+}
+
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
 /* Scroll reveal */
 .reveal {
   opacity: 0;
@@ -168,7 +201,8 @@
     transform: none !important;
     transition: none !important;
   }
-  .glass-nav::after {
+  .glass-nav::after,
+  .scroll-cue-arrow {
     animation: none;
   }
   html {

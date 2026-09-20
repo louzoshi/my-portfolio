@@ -17,6 +17,8 @@ const en = {
     description:
       "Fullstack .NET developer — C# and ASP.NET Core on the back end, building scalable REST APIs with SQL Server and Entity Framework. React and TypeScript on the front end, covering the full flow from UI to API to database.",
     viewProjects: "View projects",
+    scroll: "scroll",
+    scrollHint: "Scroll to the next section",
   },
   about: {
     label: "About",
@@ -206,6 +208,8 @@ const pt: Dictionary = {
     description:
       "Fullstack .NET com C# e ASP.NET Core no back-end — APIs REST escaláveis com SQL Server e Entity Framework. React e TypeScript no front-end, cobrindo o fluxo completo da interface à API e ao banco.",
     viewProjects: "Ver projetos",
+    scroll: "scroll",
+    scrollHint: "Rolar para a próxima seção",
   },
   about: {
     label: "Sobre",

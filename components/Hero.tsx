@@ -63,15 +63,15 @@ export default function Hero() {
       />
 
       {/* content — centred column */}
-      <div className="relative z-10 w-full max-w-[1120px] mx-auto px-6 pt-28 pb-24 text-center flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-[1120px] mx-auto px-6 pt-24 pb-14 md:pt-28 md:pb-24 text-center flex flex-col items-center">
         <Reveal delay={0.04}>
-          <div className="relative w-[180px] sm:w-[210px] md:w-[230px] aspect-square rounded-full overflow-hidden ring-1 ring-line shadow-elevated">
+          <div className="relative w-[152px] sm:w-[200px] md:w-[230px] aspect-square rounded-full overflow-hidden ring-1 ring-line shadow-elevated">
             <Image
               src="/imgs/newphoto.jpg"
               alt="Matheus Louzada"
               fill
               priority
-              sizes="(max-width: 768px) 210px, 230px"
+              sizes="(max-width: 768px) 200px, 230px"
               className="object-cover"
             />
           </div>
@@ -96,7 +96,7 @@ export default function Hero() {
         <Reveal delay={0.34} className="mt-9">
           <div className="flex flex-wrap gap-3.5 justify-center max-[480px]:flex-col max-[480px]:items-stretch">
             <a
-              href="#projetos"
+              href="#problemas"
               className="px-7 py-3.5 rounded-pill bg-accent text-white font-medium text-[15px] transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(91,91,214,0.55)]"
             >
               {t.hero.viewProjects}
@@ -122,6 +122,35 @@ export default function Hero() {
           </div>
         </Reveal>
       </div>
+
+      {/* scroll cue — anchored to the first fold rather than to the end of the
+          content (which overflows the screen on phones), so it is on screen
+          without scrolling and scrolls away with the hero. No Reveal wrapper:
+          its entrance transform would push the cue past the fold. Phones get
+          the rail alone — there is no room for the label under the buttons. */}
+      <a
+        href="#sobre"
+        aria-label={t.hero.scrollHint}
+        className="scroll-cue group absolute left-1/2 -translate-x-1/2 top-[calc(100svh-50px)] z-10 flex flex-col items-center gap-2"
+      >
+        <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-muted group-hover:text-fg transition-colors">
+          {t.hero.scroll}
+        </span>
+        <svg
+          className="scroll-cue-arrow text-accent"
+          width="16"
+          height="10"
+          viewBox="0 0 16 10"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
+          <path d="M1.5 1.5 8 8l6.5-6.5" />
+        </svg>
+      </a>
     </section>
   );
 }
