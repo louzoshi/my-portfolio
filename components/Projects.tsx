@@ -65,67 +65,7 @@ export default function Projects() {
             </div>
           </Reveal>
         ))}
-
-        <PersonalProjects />
       </div>
     </section>
-  );
-}
-
-const personal = [
-  {
-    key: "blog" as const,
-    tag: "REST API",
-    stack: "ASP.NET Core · JWT · SQL Server",
-    href: "https://github.com/mtlouzada/Blog",
-  },
-  {
-    key: "tasks" as const,
-    tag: "MVC",
-    stack: ".NET · ASP.NET MVC",
-    href: "https://github.com/mtlouzada/task-manager",
-  },
-  {
-    key: "auth" as const,
-    tag: "auth",
-    stack: "TypeScript · Google OAuth",
-    href: "https://github.com/mtlouzada/secureSign",
-  },
-];
-
-function PersonalProjects() {
-  const { t } = useLanguage();
-
-  return (
-    <Reveal className="mt-[104px]">
-      <p className="font-mono text-[13px] tracking-[0.04em] text-muted mb-3.5">
-        {t.projects.personal.label}
-      </p>
-      <h3 className="text-[clamp(24px,3.4vw,38px)] font-semibold tracking-[-0.02em] mb-9 text-fg">
-        {t.projects.personal.title}
-      </h3>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(258px,1fr))] gap-[18px]">
-        {personal.map((item) => (
-          <a
-            key={item.key}
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col p-7 rounded-[20px] bg-card border border-line transition-all duration-300 hover:-translate-y-1.5 hover:border-accent hover:shadow-elevated"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[11px] tracking-[0.03em] text-muted px-[9px] py-[5px] rounded-pill border border-line">
-                {item.tag}
-              </span>
-              <span className="text-muted text-sm">↗</span>
-            </div>
-            <h4 className="text-[21px] font-semibold tracking-[-0.01em] mt-[26px] mb-2 text-fg">
-              {t.projects.personal.titles[item.key]}
-            </h4>
-            <p className="font-mono text-[13px] text-muted">{item.stack}</p>
-          </a>
-        ))}
-      </div>
-    </Reveal>
   );
 }

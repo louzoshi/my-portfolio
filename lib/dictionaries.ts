@@ -35,15 +35,6 @@ const en = {
       domainInspector:
         "Fullstack technical challenge, completed: a domain inspection tool with a C# back end and a web client.",
     },
-    personal: {
-      label: "Self-taught",
-      title: "Personal projects",
-      titles: {
-        blog: "Blog CMS API",
-        tasks: "Task Manager",
-        auth: "SecureSign · Google OAuth",
-      },
-    },
     detail: {
       back: "← All projects",
       contextLabel: "Context",
@@ -209,15 +200,6 @@ const pt: Dictionary = {
         "Plataforma de finanças pessoais construída de ponta a ponta em .NET — API REST em ASP.NET Core com SQL Server, testes automatizados e CI, docker-compose, e cliente web em React.",
       domainInspector:
         "Desafio técnico fullstack, finalizado: ferramenta de inspeção de domínios com back-end em C# e cliente web.",
-    },
-    personal: {
-      label: "Autodidata",
-      title: "Projetos autorais",
-      titles: {
-        blog: "API de Blog (CMS)",
-        tasks: "Gestão de Tarefas",
-        auth: "SecureSign · Google OAuth",
-      },
     },
     detail: {
       back: "← Todos os projetos",
