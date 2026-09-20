@@ -1,0 +1,5 @@
+# pnpm 11 reads build-script approvals from here (not package.json).
+# unrs-resolver (via eslint-config-next) needs its postinstall to place the
+# native binary — without this, `pnpm dev` aborts before Next.js starts.
+allowBuilds:
+  unrs-resolver: true

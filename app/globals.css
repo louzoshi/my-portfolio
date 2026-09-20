@@ -9,7 +9,9 @@
   --fg: #1d1d1f;
   --fg-muted: #6e6e73;
   --border: rgba(0, 0, 0, 0.09);
-  --nav-bg: rgba(255, 255, 255, 0.74);
+  --nav-bg: rgba(255, 255, 255, 0.52);
+  --glass-highlight: rgba(255, 255, 255, 0.85);
+  --glass-rim: 0.75;
   --accent: #5b5bd6;
   --accent-soft: rgba(91, 91, 214, 0.1);
   --shadow: 0 18px 50px -16px rgba(0, 0, 0, 0.2);
@@ -22,7 +24,9 @@
   --fg: #f5f5f7;
   --fg-muted: #8a8a90;
   --border: rgba(255, 255, 255, 0.1);
-  --nav-bg: rgba(10, 10, 11, 0.62);
+  --nav-bg: rgba(10, 10, 11, 0.4);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
+  --glass-rim: 0.55;
   --accent: #8b8bf5;
   --accent-soft: rgba(139, 139, 245, 0.16);
   --shadow: 0 22px 60px -16px rgba(0, 0, 0, 0.65);
@@ -65,49 +69,85 @@
   }
 }
 
-/* Crypto nav pill — iridescent Ethereum mark + periodic sheen sweep */
-.eth-holo {
-  animation: eth-holo 8s linear infinite;
-}
-@keyframes eth-holo {
-  to {
-    filter: hue-rotate(360deg);
-  }
+/* ---------- navbar: prismatic glass ----------
+   Translucent panel that picks up what scrolls under it, with a spectral rim
+   and a slow bloom drifting inside — the iOS "liquid glass" read. The rim is
+   drawn as a masked gradient border so the corners stay crisp. */
+.glass-nav {
+  position: relative;
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  backdrop-filter: blur(20px) saturate(190%);
+  box-shadow: var(--shadow), inset 0 1px 0 var(--glass-highlight);
 }
 
-.crypto-pill {
-  position: relative;
-  overflow: hidden;
-}
-.crypto-pill::after {
+.glass-nav::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
   pointer-events: none;
+  opacity: var(--glass-rim);
   background: linear-gradient(
-    115deg,
-    transparent 32%,
-    var(--sheen) 50%,
-    transparent 68%
+    118deg,
+    rgba(125, 211, 252, 0.7) 0%,
+    rgba(129, 140, 248, 0.55) 22%,
+    rgba(192, 132, 252, 0.45) 40%,
+    rgba(255, 255, 255, 0.25) 56%,
+    rgba(94, 234, 212, 0.5) 82%,
+    rgba(240, 171, 252, 0.6) 100%
   );
-  transform: translateX(-130%);
-  animation: crypto-sheen 5.5s ease-in-out infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
 }
-:root {
-  --sheen: rgba(255, 255, 255, 0.55);
+
+/* the refraction itself: wide, very low-opacity spectral blobs drifting
+   behind the content */
+.glass-nav::after {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background:
+    radial-gradient(38% 60% at 12% 40%, rgba(125, 211, 252, 0.5), transparent 70%),
+    radial-gradient(34% 55% at 44% 60%, rgba(192, 132, 252, 0.42), transparent 70%),
+    radial-gradient(40% 62% at 82% 38%, rgba(94, 234, 212, 0.4), transparent 70%);
+  filter: blur(14px);
+  animation: glass-drift 18s ease-in-out infinite alternate;
 }
-[data-theme="dark"] {
-  --sheen: rgba(255, 255, 255, 0.13);
+
+[data-theme="dark"] .glass-nav::after {
+  opacity: 0.32;
 }
-@keyframes crypto-sheen {
-  0%,
-  58% {
-    transform: translateX(-130%);
+
+/* the open mobile menu goes opaque — a translucent panel over the hero photo
+   is unreadable, and the bloom would fight the links */
+.glass-nav.is-open {
+  background: var(--bg);
+}
+.glass-nav.is-open::after {
+  opacity: 0;
+}
+
+@keyframes glass-drift {
+  from {
+    transform: translate3d(-4%, 0, 0) scale(1);
   }
-  88%,
-  100% {
-    transform: translateX(130%);
+  to {
+    transform: translate3d(4%, 0, 0) scale(1.08);
   }
+}
+
+/* keep nav content above the glass layers */
+.glass-nav > * {
+  position: relative;
+  z-index: 2;
 }
 
 /* Scroll reveal */
@@ -128,8 +168,7 @@
     transform: none !important;
     transition: none !important;
   }
-  .eth-holo,
-  .crypto-pill::after {
+  .glass-nav::after {
     animation: none;
   }
   html {

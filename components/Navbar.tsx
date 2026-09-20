@@ -29,46 +29,6 @@ function MoonIcon() {
   );
 }
 
-/** Ethereum diamond with the same iridescent gradient used in /cripto.
-   `id` keeps gradient defs unique when the mark renders twice (desktop + mobile menu). */
-function EthMark({ id, className = "" }: { id: string; className?: string }) {
-  const grad = `eth-grad-${id}`;
-  return (
-    <svg viewBox="0 0 256 417" className={className} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id={grad} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#7dd3fc" />
-          <stop offset="28%" stopColor="#818cf8" />
-          <stop offset="52%" stopColor="#c084fc" />
-          <stop offset="74%" stopColor="#f0abfc" />
-          <stop offset="100%" stopColor="#5eead4" />
-        </linearGradient>
-      </defs>
-      <g fill={`url(#${grad})`}>
-        <polygon opacity="0.7" points="127.9611 0 125.1661 9.5 125.1661 285.168 127.9611 287.958 255.9231 212.32" />
-        <polygon points="127.962 0 0 212.32 127.962 287.959 127.962 154.158" />
-        <polygon opacity="0.7" points="127.9611 312.1866 126.3861 314.1066 126.3861 412.3056 127.9611 416.9066 255.9991 236.5866" />
-        <polygon points="127.962 416.9052 127.962 312.1852 0 236.5852" />
-        <polygon opacity="0.45" points="127.9611 287.9577 255.9211 212.3207 127.9611 154.1587" />
-        <polygon opacity="0.6" points="0.0009 212.3208 127.9609 287.9578 127.9609 154.1588" />
-      </g>
-    </svg>
-  );
-}
-
-function Logo() {
-  return (
-    <Link href="/" aria-label="Início" className="group flex items-center gap-2.5">
-      <span className="grid place-items-center w-[34px] h-[34px] rounded-[11px] bg-fg text-bg font-bold text-[13px] tracking-[-0.03em] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105">
-        ML
-      </span>
-      <span className="hidden sm:block font-semibold text-[15px] tracking-[-0.01em] text-fg">
-        Matheus Louzada
-      </span>
-    </Link>
-  );
-}
-
 function LangToggle({ className = "" }: { className?: string }) {
   const { lang, toggle, t } = useLanguage();
   return (
@@ -91,21 +51,25 @@ export default function Navbar() {
   const links = t.nav.links;
 
   // Floating island: detached from the top edge so the hero background runs
-  // behind and around the bar.
+  // behind and around the bar — and through it, since the glass is translucent.
   return (
     <div className="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-5">
-      {/* the open mobile menu goes opaque — a translucent panel over the hero
-          photo is unreadable */}
       <nav
-        className={`mx-auto max-w-[1120px] rounded-2xl border border-line backdrop-blur-md backdrop-saturate-150 shadow-elevated overflow-hidden transition-colors duration-300 ${
-          open ? "bg-[var(--bg)]" : "bg-[var(--nav-bg)]"
+        className={`glass-nav mx-auto max-w-[1120px] rounded-2xl overflow-hidden transition-colors duration-300 ${
+          open ? "is-open" : ""
         }`}
       >
         <div className="px-4 sm:px-5 h-[58px] flex items-center justify-between gap-4">
-          {/* left — logo */}
-          <Logo />
+          {/* left — wordmark */}
+          <Link
+            href="/"
+            aria-label="Início"
+            className="font-semibold text-[15px] tracking-[-0.01em] text-fg hover:opacity-70 transition-opacity"
+          >
+            Matheus Louzada
+          </Link>
 
-          {/* right — links, utilities, and the crypto CTA anchoring the edge */}
+          {/* right — links and utilities */}
           <div className="flex items-center gap-2">
             <div className="hidden md:flex items-center gap-0.5 mr-1">
               {links.map((l) => (
@@ -131,17 +95,6 @@ export default function Navbar() {
             >
               {theme === "dark" ? <MoonIcon /> : <SunIcon />}
             </button>
-
-            <Link
-              href="/cripto"
-              className="crypto-pill group hidden sm:inline-flex items-center gap-2 pl-3 pr-3.5 h-9 rounded-pill text-[13.5px] font-medium text-white bg-accent shadow-[0_6px_18px_-8px_rgba(91,91,214,0.8)] transition-all duration-300 hover:-translate-y-[1px] hover:shadow-[0_10px_24px_-8px_rgba(91,91,214,0.9)]"
-            >
-              <EthMark
-                id="nav"
-                className="eth-holo h-[15px] w-auto transition-transform duration-300 group-hover:-translate-y-[1.5px] group-hover:scale-110"
-              />
-              Web3
-            </Link>
 
             <button
               onClick={() => setOpen((v) => !v)}
@@ -175,14 +128,6 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
-            <Link
-              href="/cripto"
-              onClick={() => setOpen(false)}
-              className="px-3 py-3.5 rounded-xl text-[17px] font-medium text-white bg-accent mt-1 inline-flex items-center gap-2.5"
-            >
-              <EthMark id="menu" className="eth-holo h-[18px] w-auto" />
-              Web3 ↗
-            </Link>
             <div className="px-3 pt-3 pb-1">
               <LangToggle />
             </div>

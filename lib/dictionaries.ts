@@ -5,6 +5,7 @@ const en = {
     links: [
       { label: "About", href: "/#sobre" },
       { label: "Projects", href: "/#projetos" },
+      { label: "Open Source", href: "/#opensource" },
       { label: "Contact", href: "/#contato" },
     ],
     switchLang: "Mudar para português",
@@ -95,6 +96,69 @@ const en = {
       },
     },
   },
+  opensource: {
+    label: "Open source",
+    title: "Contributions",
+    lead: "For the past year I've been contributing to open-source web3 projects — community platforms, an onchain DAO and the tooling other DAOs launch from. Real repositories, real reviewers, real users: every item below is work that shipped to production through pull requests.",
+    prLabel: "PR",
+    prsLabel: "PRs",
+    mergedLabel: "merged",
+    mergedLabelOne: "merged",
+    stackLabel: "Stack",
+    visitSite: "Visit site",
+    viewPrs: "See the PRs",
+    allWork: "All my open source on GitHub ↗",
+    experienceLabel: "What it taught me",
+    experienceTitle: "Experience you don't get alone.",
+    experienceBody:
+      "Contributing to these codebases taught me things a personal project never would: reading someone else's architecture before touching it, shipping small reviewable PRs, and defending a decision in code review.",
+    experience: [
+      {
+        title: "Working in codebases I didn't write",
+        body: "Landing a change in an unfamiliar repo means reading the conventions first and keeping the diff small enough to review. Twenty-three merged PRs later, that's the habit.",
+      },
+      {
+        title: "Web3 UX lives in the unhappy paths",
+        body: "Wrong network, rejected signature, failed upload. Wiring wallets with wagmi / viem taught me that the transaction lifecycle — not the happy path — is where the work actually is.",
+      },
+      {
+        title: "Async, in public, in English",
+        body: "Open-source and DAO work happens across time zones: written proposals, review threads, and a milestone demo I presented to an international community.",
+      },
+    ],
+    items: {
+      skatehive: {
+        role: "Contributor",
+        summary:
+          "International open-source platform connecting the skateboarding community through web3, built on Hive.",
+        points: [
+          "Built multi-account login — switch identities without re-authenticating",
+          "Hardened the onchain swap: chain-id fix and graceful handling of rejected transactions",
+          "Shipped a global command palette and guided onboarding for new users",
+        ],
+      },
+      gnars: {
+        role: "Contributor",
+        summary:
+          "Onchain skate DAO in the Nouns ecosystem, funding skaters and creators through a treasury governed onchain.",
+        points: [
+          "Built the send-NFTs proposal flow — multi-select treasury NFTs into one onchain proposal",
+          "Improved proposal creation: Markdown descriptions, duplicate detection, inline validation",
+          "Migrated the archive's broken images to IPFS / Pinata",
+        ],
+      },
+      builderdao: {
+        role: "Contributor",
+        summary:
+          "Builder Deploy Direct — a DAO-funded, no-code launcher that ships a Nouns Builder DAO frontend into the user's own GitHub and Vercel accounts.",
+        points: [
+          "Refined the milestone-1 frontend: connect dialogs, guided walkthrough, dark/light fixes",
+          "End-to-end QA of the OAuth → fork → configure → deploy wizard",
+          "Presented the milestone demo to the community, in English",
+        ],
+      },
+    },
+  },
   contact: {
     label: "Contact",
     title: "Let's talk.",
@@ -116,6 +180,7 @@ const pt: Dictionary = {
     links: [
       { label: "Sobre", href: "/#sobre" },
       { label: "Projetos", href: "/#projetos" },
+      { label: "Open Source", href: "/#opensource" },
       { label: "Contato", href: "/#contato" },
     ],
     switchLang: "Switch to English",
@@ -203,6 +268,69 @@ const pt: Dictionary = {
           outcome:
             "Entregue completo, desenhado em torno de separação de responsabilidades e testabilidade.",
         },
+      },
+    },
+  },
+  opensource: {
+    label: "Open source",
+    title: "Contribuições",
+    lead: "No último ano venho contribuindo com projetos open-source de web3 — plataformas de comunidade, uma DAO onchain e a ferramenta que outras DAOs usam pra nascer. Repositório real, revisor real, usuário real: tudo aqui embaixo foi pra produção via pull request.",
+    prLabel: "PR",
+    prsLabel: "PRs",
+    mergedLabel: "mergeados",
+    mergedLabelOne: "mergeado",
+    stackLabel: "Stack",
+    visitSite: "Ver site",
+    viewPrs: "Ver os PRs",
+    allWork: "Todo meu open source no GitHub ↗",
+    experienceLabel: "O que eu ganhei com isso",
+    experienceTitle: "Experiência que sozinho não se ganha.",
+    experienceBody:
+      "Contribuir com essas bases me ensinou coisas que projeto pessoal nenhum ensina: ler a arquitetura que outra pessoa escreveu antes de mexer, entregar PRs pequenos e revisáveis, e defender uma decisão em code review.",
+    experience: [
+      {
+        title: "Mexer em código que não é meu",
+        body: "Entregar numa base desconhecida exige ler as convenções antes e manter o diff pequeno o suficiente pra ser revisado. Vinte e três PRs mergeados depois, virou hábito.",
+      },
+      {
+        title: "UX web3 mora nos unhappy paths",
+        body: "Rede errada, assinatura rejeitada, upload falho. Integrar carteiras com wagmi / viem me mostrou que o trabalho de verdade está no ciclo de vida da transação, não no caminho feliz.",
+      },
+      {
+        title: "Async, em público, em inglês",
+        body: "Open source e DAO acontecem entre fusos: proposta escrita, thread de review, e uma demo de milestone que apresentei pra uma comunidade internacional.",
+      },
+    ],
+    items: {
+      skatehive: {
+        role: "Contribuidor",
+        summary:
+          "Plataforma open-source internacional que conecta a comunidade do skate via web3, construída sobre a Hive.",
+        points: [
+          "Login multi-conta — trocar de identidade sem reautenticar",
+          "Deixei o swap onchain mais robusto: correção de chain-id e tratamento de transação rejeitada",
+          "Command palette global e onboarding guiado pra novos usuários",
+        ],
+      },
+      gnars: {
+        role: "Contribuidor",
+        summary:
+          "DAO de skate onchain no ecossistema Nouns, que financia skatistas e criadores por uma tesouraria governada onchain.",
+        points: [
+          "Fluxo de envio de NFTs em propostas — multi-seleção da tesouraria numa proposta onchain",
+          "Melhorias na criação de propostas: Markdown, detecção de duplicadas e validação inline",
+          "Migrei as imagens quebradas do arquivo pra IPFS / Pinata",
+        ],
+      },
+      builderdao: {
+        role: "Contribuidor",
+        summary:
+          "Builder Deploy Direct — launcher no-code financiado pela DAO que publica um frontend de Nouns Builder direto nas contas GitHub e Vercel do usuário.",
+        points: [
+          "Refinei o frontend da milestone 1: connect dialogs, walkthrough guiado, ajustes de dark/light",
+          "QA end-to-end do wizard OAuth → fork → configuração → deploy",
+          "Apresentei a demo da milestone pra comunidade, em inglês",
+        ],
       },
     },
   },

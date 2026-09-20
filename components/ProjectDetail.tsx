@@ -9,7 +9,7 @@ import { useLanguage } from "@/lib/useLanguage";
 import type { Project } from "@/lib/projects";
 
 /* Case-study page for a featured corporate project.
-   Deliberately sober — no flavors or effects like /cripto: the page itself
+   Deliberately sober — no per-project flavors or effects: the page itself
    should read like professional documentation. */
 
 export default function ProjectDetail({ project }: { project: Project }) {
