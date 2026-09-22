@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useTheme } from "@/lib/useTheme";
 import { useLanguage } from "@/lib/useLanguage";
+import SiteNotice from "./SiteNotice";
 
 function SunIcon() {
   return (
@@ -54,6 +55,7 @@ export default function Navbar() {
   // behind and around the bar — and through it, since the glass is translucent.
   return (
     <div className="fixed top-3 sm:top-4 left-0 right-0 z-50 px-3 sm:px-5">
+      <SiteNotice />
       <nav
         className={`glass-nav mx-auto max-w-[1120px] rounded-2xl overflow-hidden transition-colors duration-300 ${
           open ? "is-open" : ""

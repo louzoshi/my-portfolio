@@ -15,6 +15,10 @@
   --accent: #5b5bd6;
   --accent-soft: rgba(91, 91, 214, 0.1);
   --shadow: 0 18px 50px -16px rgba(0, 0, 0, 0.2);
+  --notice-from: #fbbf24;
+  --notice-to: #f97316;
+  --notice-fg: #3b1f02;
+  --notice-glow: rgba(249, 115, 22, 0.42);
 }
 
 [data-theme="dark"] {
@@ -30,6 +34,10 @@
   --accent: #8b8bf5;
   --accent-soft: rgba(139, 139, 245, 0.16);
   --shadow: 0 22px 60px -16px rgba(0, 0, 0, 0.65);
+  --notice-from: #f5b425;
+  --notice-to: #ef7011;
+  --notice-fg: #2a1600;
+  --notice-glow: rgba(249, 115, 22, 0.3);
 }
 
 @layer base {
@@ -215,4 +223,71 @@
 }
 ::view-transition-new(root) {
   z-index: 2;
+}
+
+/* ---------- site notice ----------
+   Temporary "under construction" banner above the navbar. Loud on purpose:
+   amber gradient, hazard stripes drifting across it, and a pulsing dot. The
+   dismissed state is written to the root element before paint, so it never
+   flashes on return. */
+[data-notice="off"] .site-notice {
+  display: none;
+}
+
+.site-notice {
+  position: relative;
+  color: var(--notice-fg);
+  background: linear-gradient(100deg, var(--notice-from), var(--notice-to));
+  box-shadow: 0 8px 28px -8px var(--notice-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+/* the hazard tape: diagonal stripes sliding across the whole pill */
+.site-notice::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0.85) 0 10px,
+    transparent 10px 20px
+  );
+  background-size: 28.28px 28.28px;
+  animation: notice-stripes 1.6s linear infinite;
+}
+
+@keyframes notice-stripes {
+  to {
+    background-position: 28.28px 0;
+  }
+}
+
+.notice-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--notice-fg);
+  animation: notice-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes notice-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.72);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-notice::before,
+  .notice-dot {
+    animation: none;
+  }
 }

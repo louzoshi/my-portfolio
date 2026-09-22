@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   description: "Desenvolvedor Fullstack — .NET, C#, React, TypeScript",
 };
 
-// Set the theme and language before paint to avoid a flash of the wrong
-// color scheme / lang attribute.
-const themeScript = `(function(){try{var t=localStorage.getItem('ml-theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('ml-lang');document.documentElement.lang=l==='en'?'en':'pt-BR';}catch(e){}})();`;
+// Set the theme, language and notice state before paint to avoid a flash of
+// the wrong color scheme / lang attribute / a dismissed banner.
+const themeScript = `(function(){try{var t=localStorage.getItem('ml-theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('ml-lang');document.documentElement.lang=l==='en'?'en':'pt-BR';if(localStorage.getItem('ml-notice')==='dismissed'){document.documentElement.setAttribute('data-notice','off');}}catch(e){}})();`;
 
 export default function RootLayout({
   children,

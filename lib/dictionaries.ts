@@ -1,6 +1,11 @@
 export type Lang = "pt" | "en";
 
 const en = {
+  notice: {
+    badge: "Work in progress",
+    text: "This site is still being finished — some details are in flight.",
+    dismiss: "Dismiss notice",
+  },
   nav: {
     links: [
       { label: "About", href: "/#sobre" },
@@ -191,6 +196,11 @@ const en = {
 export type Dictionary = typeof en;
 
 const pt: Dictionary = {
+  notice: {
+    badge: "Em construção",
+    text: "Este site ainda está sendo finalizado — alguns detalhes estão em andamento.",
+    dismiss: "Fechar aviso",
+  },
   nav: {
     links: [
       { label: "Sobre", href: "/#sobre" },
